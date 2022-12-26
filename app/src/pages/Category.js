@@ -39,15 +39,29 @@ const fetchRecipesByCuisine = async function(cuisine) {
 // формируем список с рецептами
 const createRecipesList = function (data) {
   const foodWrapper = document.querySelector(".food_wrapper");
-  
-  foodWrapper.innerHTML = `
-  ${data.results.map(item => `<div class="inner">
-    <a href=#/recipe/${item.id}>
-      <img class="food_img" src=${item.image}>
-      <p class="food_name">${item.title}</p>  
-    </a>
-    </div>`).join('\n ')}
-  `
+
+  if (data.results.length) {
+    foodWrapper.innerHTML = `
+    ${data.results.map(item => `<div class="inner">
+      <a href=#/recipe/${item.id}>
+        <img class="food_img" src=${item.image}>
+        <p class="food_name">${item.title}</p>  
+      </a>
+      </div>`).join('\n ')}
+    `
+  } else {
+    foodWrapper.innerHTML = `
+          <div class="error_section">
+            <div class="auto_container">
+              <div class="content">
+                <h1>Oops!</h1>
+                <p>Sorry, there are no such recipes in our catalog, you can search for them in user recipes.</p>
+                <a href="#/userrecipes">Go to user recipes</a>
+              </div>
+            </div>
+          </div> 
+    `
+  }
 }
 
 let Category = {
@@ -175,34 +189,9 @@ let Category = {
     const searchBtn = document.querySelector(".search_btn")
     searchBtn.addEventListener("click", async (e) => {
       e.preventDefault();
-
+      
       if (searchInput.value.trim()) {
-        const data = await fetchRecipes(searchInput.value);
-
-        // если есть результаты, формируем список, если нет - ошибку
-        if (data.results.length) {
-          foodWrapper.innerHTML = `
-          ${data.results.map(item => 
-            `<div class="inner">
-              <a href=#/recipe/${item.id}>
-                <img class="food_img" src=${item.image}>
-                <p class="food_name">${item.title}</p>  
-              </a>
-            </div>`).join('\n ')}
-          `;
-        } else {
-          foodWrapper.innerHTML = `
-          <div class="error_section">
-            <div class="auto_container">
-              <div class="content">
-                <h1>Oops!</h1>
-                <p>Sorry, there are no such recipes in our catalog, you can search for them in user recipes.</p>
-                <a href="#/userrecipes">Go to user recipes</a>
-              </div>
-            </div>
-          </div>      
-          `;
-        }
+        await fetchRecipes(searchInput.value.trim());
       }
 
       searchInput.value = "";

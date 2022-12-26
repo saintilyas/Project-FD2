@@ -9,18 +9,42 @@ const fetchData = async function(value = "pasta") {
   try {
     const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKey}&number=21&query=${value}`);
     const data = await response.json();
-    return data;
+    createRecipesList(data);
   } catch (error) {
     console.error("Failing fetching data.", error);
+  }
+}
+
+const createRecipesList = function (data) {
+  const foodWrapper = document.querySelector(".food_wrapper");
+
+  if (data.results.length) {
+    foodWrapper.innerHTML = `
+    ${data.results.map(item => `<div class="inner">
+      <a href=#/recipe/${item.id}>
+        <img class="food_img" src=${item.image}>
+        <p class="food_name">${item.title}</p>  
+      </a>
+      </div>`).join('\n ')}
+    `
+  } else {
+    foodWrapper.innerHTML = `
+          <div class="error_section">
+            <div class="auto_container">
+              <div class="content">
+                <h1>Oops!</h1>
+                <p>Sorry, there are no such recipes in our catalog, you can search for them in user recipes.</p>
+                <a href="#/userrecipes">Go to user recipes</a>
+              </div>
+            </div>
+          </div> 
+    `
   }
 }
 
 let Home = {
   title: "Our recipes",
   render: async () => {
-    root.innerHTML = Preloader.render();
-    const data = await fetchData();
-    const recipe = data.results;
     const view = `<div class="head_bg">
                     <h1>Recipes</h1>
                   </div>
@@ -50,13 +74,7 @@ let Home = {
                             <li class="category">Soup</li>
                           </ul>
                         </div>
-                        <div class="food_wrapper">${recipe.map(item => 
-                          `<div class="inner">
-                          <a href=#/recipe/${item.id}>
-                            <img class="food_img" src=${item.image}>
-                            <p class="food_name">${item.title}</p>  
-                          </a>
-                          </div>`).join('\n ')}</div>
+                        <div class="food_wrapper"></div>
                       </div>
                     </div>
                   </div>`;
@@ -68,6 +86,7 @@ let Home = {
     const foodWrapper = document.querySelector(".food_wrapper");
     const searchBtn = document.querySelector(".search_btn");
     const searchInput = document.querySelector(".search_input");
+    await fetchData();
 
     // быстрый поиск рецептов из предложенных сверху страницы
     categoryBtn.forEach(btn => {
@@ -76,17 +95,7 @@ let Home = {
 
         const value = e.target.innerText.toLowerCase();        
         foodWrapper.innerHTML = Preloader.render();
-        const data = await fetchData(value);
-       
-        foodWrapper.innerHTML = `
-        ${data.results.map(item => 
-          `<div class="inner">
-            <a href=#/recipe/${item.id}>
-              <img class="food_img" src=${item.image}>
-              <p class="food_name">${item.title}</p>  
-            </a>
-          </div>`).join('\n ')}
-        `
+        await fetchData(value);
       })
     });
 
@@ -95,31 +104,7 @@ let Home = {
       e.preventDefault();
 
       if (searchInput.value.trim()) {
-        const data = await fetchData(searchInput.value);
-
-        if (data.results.length) {
-          foodWrapper.innerHTML = `
-          ${data.results.map(item => 
-            `<div class="inner">
-              <a href=#/recipe/${item.id}>
-                <img class="food_img" src=${item.image}>
-                <p class="food_name">${item.title}</p>  
-              </a>
-            </div>`).join('\n ')}
-          `;
-        } else {
-          foodWrapper.innerHTML = `
-          <div class="error_section">
-            <div class="auto_container">
-              <div class="content">
-                <h1>Oops!</h1>
-                <p>Sorry, there are no such recipes in our catalog, you can search for them in user recipes.</p>
-                <a href="#/userrecipes">Go to user recipes</a>
-              </div>
-            </div>
-          </div>      
-          `;
-        }
+        await fetchData(searchInput.value.trim());
       }
 
       searchInput.value = "";
