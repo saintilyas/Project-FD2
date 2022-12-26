@@ -88,7 +88,6 @@ function getAllComments (data) {
   const list = document.querySelector(".comment_list");
   let comments = Object.entries(data);
   let sortedComments = comments.sort((a,b) => b[1].timestamp - a[1].timestamp);
-  console.log(sortedComments)
 
   list.innerHTML = `${sortedComments.map(([key, value]) => {
     if (value.userId == userData.id) {
