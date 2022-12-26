@@ -694,6 +694,7 @@ textarea {
 }
 
 .comment_inner {
+  position: relative;
   list-style-type: none;
   padding: 20px;
   border: 1px solid #DDD;
@@ -712,6 +713,15 @@ textarea {
 
 .comment_text {
   margin-top: 10px;
+}
+
+.delete_comment {
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 20px;
+  cursor: pointer;
 }
 
 .disable {

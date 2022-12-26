@@ -7,6 +7,7 @@ import {
   get,
   child,
   onValue,
+  remove,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 // получаем данные о конкретном рецепте
@@ -42,17 +43,30 @@ function getRecipe (data) {
 
 // функция генерирации рандомного id для коммента
 const randomId = () => Math.floor(Math.random() * (1000 - 1) + 1);
+// получаем объект с данными пользователя
+const userData = JSON.parse(localStorage.getItem("_r_usrname")) || JSON.parse(sessionStorage.getItem("_r_usrname"));
 
 // записываем комментарий в бд
 function writeCommentsIntoDb(username, text, timestamp) {
   const db = getDatabase();
   const recipeId = Utils.parseRequestURL().id;
   const commentId = randomId();
+  
+  const userId = userData.id
   set(ref(db, 'recipeComments/' + recipeId + "/comments/" + commentId), {
     username: username,
     text: text,
-    timestamp: timestamp
+    timestamp: timestamp,
+    userId: userData.id,
+    commentId: commentId
   });
+}
+
+function deleteComment (commentId) {
+  const db = getDatabase();
+  const recipeId = Utils.parseRequestURL().id;
+  
+  remove(ref(db, "recipeComments/" + recipeId + "/comments/" + commentId));
 }
 
 // формируем список комментариев от новых к старым
@@ -60,12 +74,34 @@ function getAllComments (data) {
   const list = document.querySelector(".comment_list");
   let comments = Object.entries(data);
   let sortedComments = comments.sort((a,b) => b[1].timestamp - a[1].timestamp);
+  console.log(sortedComments)
 
-  list.innerHTML = `${sortedComments.map(([key, value]) => 
-    `<li class="comment_inner">
-      <h5 class="comment_username">${value.username}</h5><span class="comment_date">${new Date(value.timestamp).toLocaleDateString()}</span>
-      <p class="comment_text">${value.text}</p>
-    </li>`).join(' \n')}`
+  list.innerHTML = `${sortedComments.map(([key, value]) => {
+    if (value.userId == userData.id) {
+      return `<li class="comment_inner">
+                <img src="../img/x.png" class="delete_comment" data-id="${value.commentId}" />
+                <h5 class="comment_username">${value.username}</h5><span class="comment_date">${new Date(value.timestamp).toLocaleDateString()}</span>
+                <p class="comment_text">${value.text}</p>
+              </li>`
+    } else {
+      return `<li class="comment_inner">
+                <h5 class="comment_username">${value.username}</h5><span class="comment_date">${new Date(value.timestamp).toLocaleDateString()}</span>
+                <p class="comment_text">${value.text}</p>
+              </li>`
+    }
+  }).join(' \n')}`
+
+  const deleteCommentBtns = document.querySelectorAll(".delete_comment");
+  deleteCommentBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const wrapper = btn.closest(".comment_inner");
+      const commId = btn.dataset.id;
+      deleteComment(commId);
+      wrapper.remove();
+    })
+  })
 }
 
 // получаем комменты из бд, если есть то формируем список
