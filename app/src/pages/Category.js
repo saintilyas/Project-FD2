@@ -191,6 +191,7 @@ let Category = {
       e.preventDefault();
       
       if (searchInput.value.trim()) {
+        foodWrapper.innerHTML = Preloader.render();
         await fetchRecipes(searchInput.value.trim());
       }
 

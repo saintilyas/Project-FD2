@@ -12,6 +12,7 @@ const root = document.getElementById("root");
 
 function LoginForm() {
 
+  // валидация формы регистрации
   this.validateSignup = function () {
     const signupPassword = document.getElementById("signup_password").value;
     const signupEmail = document.getElementById("signup_email").value;
@@ -27,7 +28,7 @@ function LoginForm() {
     }
   }
 
-  // проверяем валидность введенных данных
+  // проверяем валидность введенных данных формы логина
   this.validateLogin = function () {
     const wrapper = document.querySelector(".login_formfields");
     const loginEmail = document.getElementById("login_email").value;
@@ -94,6 +95,8 @@ function LoginForm() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, user.email, user.password);
       user.id = userCredential.user.uid;
+
+      // проверяем галочку и записываем пользователя в локал или сешн сторэдж
       rememberBtn.checked ? localStorage.setItem("_r_usrname", JSON.stringify(user)) : sessionStorage.setItem("_r_usrname", JSON.stringify(user));
     } catch (error) {
       wrapper.classList.add("login_err");
@@ -123,6 +126,8 @@ function LoginForm() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, user.email, user.password);
       user.id = userCredential.user.uid;
+
+      // проверяем галочку и записываем пользователя в локал или сешн сторэдж
       rememberBtn.checked ? localStorage.setItem("_r_usrname", JSON.stringify(user)) : sessionStorage.setItem("_r_usrname", JSON.stringify(user));
     } catch (error) {
       wrapper.classList.add(".signup_err");

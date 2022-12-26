@@ -15,6 +15,7 @@ const fetchData = async function(value = "pasta") {
   }
 }
 
+// формируем список из полученных данных
 const createRecipesList = function (data) {
   const foodWrapper = document.querySelector(".food_wrapper");
 

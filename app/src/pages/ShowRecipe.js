@@ -100,6 +100,7 @@ function getRecipeComments () {
   } 
 }
 
+// для неавторизованных комменты недоступны
 function disableComments () {
   const comm_err = document.querySelector(".comments_worm");
 
@@ -108,6 +109,7 @@ function disableComments () {
   `
 }
 
+// если поля комментария не заполнены, кнопка поста задизеблена
 function disableCommentBtn () {
   const username = document.querySelector(".username_inp");
   const text = document.querySelector(".comment_textarea");
@@ -130,11 +132,13 @@ let ShowRecipe = {
   render: async () => {
     root.innerHTML = Preloader.render();
 
+    // получаем id рецепта и данные о нем
     let URL = Utils.parseRequestURL();
     const recipe = await getRecipe(URL.id);
     const info = await getSteps(URL.id);
     const similar = await getSimilar(URL.id);
 
+    // формируем ссылку на картинку с рецептом, если ингредиентов слишком много, то ничего
     let printHTML;
     if (recipe.extendedIngredients.length < 14) {
       const printdata = await getPrintData(URL.id);
@@ -145,8 +149,8 @@ let ShowRecipe = {
       printHTML = ``;
     }
 
+    // формируем страницу, если данных не хватает, то выдаем извинение
     let view;
-
     if (!info.length) {
       view = `
           <div class="head_bg">
@@ -224,12 +228,14 @@ let ShowRecipe = {
     const summaryWrap = document.querySelector(".summary_wrap");
     const anonimous = localStorage.getItem("_r_usrname") || sessionStorage.getItem("_r_usrname") ? false : true; // проверка на авторизацию
 
+    // проверяем авторизован ли пользователь, показываем блок комментариев
     if (!anonimous) {
       getRecipeComments();
     } else {
       disableComments();
     }
 
+    // делаем линки в блоке summry неактивными
     const disableLinks = summaryWrap.querySelectorAll("a");
     disableLinks.forEach(link => {
       link.addEventListener("click", e => {
@@ -237,6 +243,7 @@ let ShowRecipe = {
       });
     });
 
+    // если пользователь авторизован, вешаем обработчик постинга комментария, очищаем поля ввода
     const commentBtn = document.querySelector(".comment_btn");
     if (commentBtn) {
       disableCommentBtn();
@@ -247,9 +254,7 @@ let ShowRecipe = {
       
       commentBtn.addEventListener("click", (e) => {
         e.preventDefault();
-  
-        const username = document.querySelector(".username_inp");
-        const text = document.querySelector(".comment_textarea");
+
         const timestamp = new Date().getTime();
   
         writeCommentsIntoDb(username.value, text.value, timestamp);

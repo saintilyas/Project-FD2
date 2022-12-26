@@ -77,7 +77,7 @@ async function router() {
 // запускаем каждый раз когда хэш меняется
 window.addEventListener("hashchange", router);
 
-// запускаем при первой загрузке
+// запускаем при первой загрузке, рендерим страницу, показываем приветственную модалку
 window.addEventListener("DOMContentLoaded", e => {
   router();
 
