@@ -1,6 +1,6 @@
 import Preloader from '../components/Preloader.js'
 
-const APIKey = "7de7f713e27c426da586100a754de994";
+const APIKey = "cee529840fce47c786c1ebcadcb117e3";
 
 // получаем рецепты, по дефолту пасту
 const fetchData = async function(value = "pasta") {

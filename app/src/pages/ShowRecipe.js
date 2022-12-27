@@ -11,7 +11,7 @@ import {
 
 const root = document.getElementById("root");
 
-const APIKey = `2cfadc38062445c5bc87b8de59ee99ce`;
+const APIKey = `cee529840fce47c786c1ebcadcb117e3`;
 
 // снизу 4 функции получения разных данных о рецепте
 const getRecipe = async function (id) {
