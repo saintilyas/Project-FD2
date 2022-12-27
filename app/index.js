@@ -71,7 +71,7 @@ async function router() {
   document.title = page.title;
 
   root.innerHTML = Preloader.render();
-  await Utils.sleep(200);
+  await Utils.sleep(500);
   root.innerHTML = await page.render();
   await page.after_render();
 }
