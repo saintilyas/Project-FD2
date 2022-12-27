@@ -143,7 +143,6 @@ function LoginForm() {
     root.innerHTML = UserProfile.render();
     UserProfile.after_render();
   }
-
 }
 
 let Login = {

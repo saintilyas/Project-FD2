@@ -51,7 +51,7 @@ let UserProfile = {
     const profileTab = document.querySelector(".profile_tab");
     profileTab.addEventListener("click", (e) =>{
       e.preventDefault()
-    });
+    }); 
   }
 }
 

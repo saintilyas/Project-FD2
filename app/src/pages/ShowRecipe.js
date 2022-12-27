@@ -162,7 +162,6 @@ function disableCommentBtn () {
   }
 }
 
-
 let ShowRecipe = {
   title: "Recipe page",
   render: async () => {

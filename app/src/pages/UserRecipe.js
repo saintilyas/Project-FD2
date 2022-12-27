@@ -8,7 +8,7 @@ import {
   child,
   onValue,
   remove,
-} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js" 
 
 // получаем данные о конкретном рецепте
 const getRecipeInfo = function () {

@@ -106,7 +106,7 @@ let Home = {
 
       if (searchInput.value.trim()) {
         await fetchData(searchInput.value.trim());
-      }
+      } 
 
       searchInput.value = "";
     });

@@ -82,9 +82,7 @@ function setNewRecipe () {
   } else {
     showModal("Error adding recipe");
   }
-  
 }
-
 
 let AddRecipe = {
   title: "Add recipe",

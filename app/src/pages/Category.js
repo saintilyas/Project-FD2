@@ -195,7 +195,7 @@ let Category = {
         await fetchRecipes(searchInput.value.trim());
       }
 
-      searchInput.value = "";
+      searchInput.value = ""; 
     });
   }
 }

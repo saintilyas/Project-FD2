@@ -69,12 +69,11 @@ async function router() {
   // рендерим страницу или error404 если такой не существует
   let page = routes[hashURL] ? routes[hashURL] : Error404;
   document.title = page.title;
-  
+
   root.innerHTML = Preloader.render();
   await Utils.sleep(200);
   root.innerHTML = await page.render();
   await page.after_render();
-
 }
 
 // запускаем каждый раз когда хэш меняется
