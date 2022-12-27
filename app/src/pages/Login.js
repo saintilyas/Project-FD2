@@ -107,6 +107,7 @@ function LoginForm() {
     const header = document.getElementById("header");
     header.innerHTML = Header.render();
     Header.after_render();
+    document.title = UserProfile.title;
     root.innerHTML = UserProfile.render();
     UserProfile.after_render();
   }
@@ -138,6 +139,7 @@ function LoginForm() {
     const header = document.getElementById("header");
     header.innerHTML = Header.render();
     Header.after_render();
+    document.title = UserProfile.title;
     root.innerHTML = UserProfile.render();
     UserProfile.after_render();
   }

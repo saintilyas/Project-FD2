@@ -13,6 +13,7 @@ import Header from       './src/components/Header.js';
 import Footer from       './src/components/Footer.js';
 import ToTopButton from  './src/components/ToTopButton.js';
 import WelcomeModal from './src/components/WelcomeModal.js';
+import Preloader from    './src/components/Preloader.js';
 
 import Utils from        './src/services/Utils.js'
 
@@ -68,6 +69,8 @@ async function router() {
   // рендерим страницу или error404 если такой не существует
   let page = routes[hashURL] ? routes[hashURL] : Error404;
   document.title = page.title;
+  
+  root.innerHTML = Preloader.render();
   await Utils.sleep(200);
   root.innerHTML = await page.render();
   await page.after_render();
@@ -78,7 +81,7 @@ async function router() {
 window.addEventListener("hashchange", router);
 
 // запускаем при первой загрузке, рендерим страницу, показываем приветственную модалку
-window.addEventListener("DOMContentLoaded", e => {
+window.addEventListener("DOMContentLoaded", (e) => {
   router();
 
   setTimeout(() => {

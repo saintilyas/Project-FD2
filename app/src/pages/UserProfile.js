@@ -47,6 +47,11 @@ let UserProfile = {
       header.innerHTML = Header.render();
       Header.after_render();
     });
+
+    const profileTab = document.querySelector(".profile_tab");
+    profileTab.addEventListener("click", (e) =>{
+      e.preventDefault()
+    });
   }
 }
 

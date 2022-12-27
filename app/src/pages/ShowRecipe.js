@@ -197,7 +197,7 @@ let ShowRecipe = {
               <div class="content">
                 <h1>Sorry</h1>
                 <p>The recipe is not available right now. If you have any questions please connect with us.</p>
-                <a href="#/home">Go to home page</a>
+                <a href="#home">Go to home page</a>
               </div>
             </div>
           </div>            
@@ -272,12 +272,15 @@ let ShowRecipe = {
     }
 
     // делаем линки в блоке summry неактивными
-    const disableLinks = summaryWrap.querySelectorAll("a");
-    disableLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
+    if (summaryWrap) {
+      const disableLinks = summaryWrap.querySelectorAll("a");
+      disableLinks.forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+        });
       });
-    });
+    }
+    
 
     // если пользователь авторизован, вешаем обработчик постинга комментария, очищаем поля ввода
     const commentBtn = document.querySelector(".comment_btn");

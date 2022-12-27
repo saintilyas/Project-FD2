@@ -43,6 +43,7 @@ function getRecipe (data) {
 
 // функция генерирации рандомного id для коммента
 const randomId = () => Math.floor(Math.random() * (1000 - 1) + 1);
+
 // получаем объект с данными пользователя
 const userData = JSON.parse(localStorage.getItem("_r_usrname")) || JSON.parse(sessionStorage.getItem("_r_usrname"));
 
@@ -51,8 +52,7 @@ function writeCommentsIntoDb(username, text, timestamp) {
   const db = getDatabase();
   const recipeId = Utils.parseRequestURL().id;
   const commentId = randomId();
-  
-  const userId = userData.id
+
   set(ref(db, 'recipeComments/' + recipeId + "/comments/" + commentId), {
     username: username,
     text: text,

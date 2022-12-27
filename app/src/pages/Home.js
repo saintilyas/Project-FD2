@@ -1,6 +1,5 @@
 import Preloader from '../components/Preloader.js'
 
-const root = document.getElementById("root");
 const APIKey = "7de7f713e27c426da586100a754de994";
 
 // получаем рецепты, по дефолту пасту
@@ -87,6 +86,7 @@ let Home = {
     const foodWrapper = document.querySelector(".food_wrapper");
     const searchBtn = document.querySelector(".search_btn");
     const searchInput = document.querySelector(".search_input");
+    foodWrapper.innerHTML = Preloader.render();
     await fetchData();
 
     // быстрый поиск рецептов из предложенных сверху страницы
