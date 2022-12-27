@@ -147,7 +147,7 @@ function disableCommentBtn () {
     commentBtn.disabled = false;
     commentBtn.classList.remove("disable")
   }
-}
+} 
 
 let UserRecipe = {
   title: "User Recipe Page",
