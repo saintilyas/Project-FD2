@@ -283,10 +283,12 @@ let ShowRecipe = {
 
     // если пользователь авторизован, вешаем обработчик постинга комментария, очищаем поля ввода
     const commentBtn = document.querySelector(".comment_btn");
+    const username = document.querySelector(".username_inp");
+    const text = document.querySelector(".comment_textarea");
+
     if (commentBtn) {
       disableCommentBtn();
-      const username = document.querySelector(".username_inp");
-      const text = document.querySelector(".comment_textarea");
+      
       username.addEventListener("input", disableCommentBtn);
       text.addEventListener("input", disableCommentBtn);
       
@@ -301,7 +303,6 @@ let ShowRecipe = {
         text.value = "";
       });
     }
-
   }
 }
 

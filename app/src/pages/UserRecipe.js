@@ -197,13 +197,12 @@ let UserRecipe = {
     }
 
     const commentBtn = document.querySelector(".comment_btn");
-
+    const username = document.querySelector(".username_inp");
+    const text = document.querySelector(".comment_textarea");
+    // по умолчанию кнопка коммента задизейбена, вешаем обрботчики на инпуты, для проверки
     if (commentBtn) {
-
-      // по умолчанию кнопка коммента задизейбена, вешаем обрботчики на инпуты, для проверки
       disableCommentBtn();
-      const username = document.querySelector(".username_inp");
-      const text = document.querySelector(".comment_textarea");
+
       username.addEventListener("input", disableCommentBtn);
       text.addEventListener("input", disableCommentBtn);
 

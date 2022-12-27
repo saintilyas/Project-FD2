@@ -33,7 +33,7 @@ async function router() {
 
   const root = document.getElementById("root");
 
-  // добавляем хедер единожды, чтобы не ререндерить их каждый раз
+  // добавляем хедер единожды, чтобы не ререндерить каждый раз
   if (!document.getElementById("header")) {
     const header = document.createElement("div");
     header.id = "header";
@@ -42,7 +42,7 @@ async function router() {
     Header.after_render();
   }
 
-  // добавляем футер единожды, чтобы не ререндерить их каждый раз
+  // добавляем футер единожды, чтобы не ререндерить каждый раз
   if(!document.getElementById("footer")) {
     const footer = document.createElement("div");
     footer.id = "footer";
@@ -51,7 +51,7 @@ async function router() {
     Footer.after_render();
   }
 
-  // добавляем кнопку скролла вверх единожды, чтобы не ререндерить их каждый раз
+  // добавляем кнопку скролла вверх единожды, чтобы не ререндерить каждый раз
   if (!document.querySelector(".sroll_up_button")) {
     const btn = document.createElement("div");
     btn.classList.add("sroll_up_button");
