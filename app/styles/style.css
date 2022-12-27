@@ -1311,6 +1311,8 @@ a:hover {
 }
 /* ========================= */
 
+/* ======== Ohter styles ====== */
+
 .unvisible {
   display: none
 }
@@ -1318,6 +1320,10 @@ a:hover {
 .hide {
   opacity: 0;
 }
+
+/* =========================== */
+
+/* ===== Mobile styles ===== */
 
 .navbar {
   display: none;
@@ -1532,3 +1538,4 @@ a:hover {
     margin-bottom: 20px;
   }
 }
+/* ======================== */
