@@ -86,5 +86,5 @@ window.addEventListener("DOMContentLoaded", (e) => {
   setTimeout(() => {
     WelcomeModal.render();
     WelcomeModal.after_render();
-  }, 5000);
+  }, 10000);
 }, {once: true});
