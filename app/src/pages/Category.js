@@ -86,7 +86,7 @@ let Category = {
                 <div class="auto_container">
                   <div class="title">
                     <h2>Recipe Categories</h2>
-                    <p>Search for the recipes you need based on food category</p>
+                    <p>Search recipes based on your preferences</p>
                   </div>
                   <div class="food_categories">
                     <ul class="categories_list">

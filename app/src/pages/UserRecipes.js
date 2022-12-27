@@ -34,21 +34,6 @@ function getRecipeList (data) {
   ).join(' \n');
 }
 
-// function searchUserRecipes (value) {
-//   const listWrapper = document.querySelector(".food_list");
-//   const allRecipes = Array.from(document.querySelectorAll(".user_recipe_link"));
-//   console.log(allRecipes)
-//   const filteredRecipes = allRecipes.filter(elem => {
-//     if (elem.innerText.indexOf(value) >= 0) {
-//       return elem
-//     }
-//   }).join(' \n')
-//   console.log(filteredRecipes)
-
-//   listWrapper.innerHTML = filteredRecipes;
-// }
-
-
 let UserRecipes= {
   title: "User recipes",
   render: () => {

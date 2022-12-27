@@ -10,7 +10,7 @@ import {
 const db = getDatabase();
 
 // генерируем рандомный id для рецепта
-const randomId = () => Math.floor(Math.random() * (1000 - 1) + 1);
+const randomId = () => Math.floor(Math.random() * (100000 - 1) + 1);
 
 // запись рецепта в бд
 function setRecipeData (title, directions, ingredients, summarize) {
